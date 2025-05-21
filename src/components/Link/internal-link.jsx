@@ -1,78 +1,62 @@
 import { useState } from "react";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import AddInternalLink from "./AddInternalLink";
 import ExistingLink from "./ExistingLink";
 import LinkOpportunity from "./LinkOpportunity";
-import AddInternalLink from "./AddInternalLink";
 import LinkAnalytic from "./LinkAnalytic";
 
 // Tab configuration
 const tabs = [
-  { value: "existing", label: "Existing Links" },
-  { value: "opportunities", label: "Link Opportunities" },
   { value: "add", label: "Add Internal Link" },
+  { value: "existing", label: "Existing Links" },
+  { value: "opportunity", label: "Link Opportunities" },
   { value: "analytics", label: "Link Analytics" },
 ];
 
-// Tab trigger component
-const TabTrigger = ({ value, label }) => (
-  <TabsTrigger
-    value={value}
-    className="w-full sm:w-auto px-2 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4 cursor-pointer rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=inactive]:bg-gray-100 data-[state=inactive]:text-gray-700 data-[state=inactive]:hover:bg-gray-200"
-  >
-    {label}
-  </TabsTrigger>
-);
-
 export default function InternalLink() {
-  const [activeTab, setActiveTab] = useState("existing");
+  const [activeTab, setActiveTab] = useState("add");
 
   return (
-    <div className="h-full flex flex-col overflow-hidden bg-white rounded-lg shadow-sm">
+    <div className="p-2 sm:p-4 md:p-6 h-full flex flex-col">
+      <h1 className="text-xl sm:text-2xl font-semibold mb-4 text-foreground">
+        Internal Link
+      </h1>
+
       <Tabs
+        defaultValue="add"
+        className="w-full flex-1 flex flex-col"
         value={activeTab}
         onValueChange={setActiveTab}
-        defaultValue="existing"
-        className="flex flex-col h-full"
       >
-        {/* Header with tab triggers */}
-        <div className="flex-none p-4 sm:p-6">
-          <h1 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">
-            Internal Links
-          </h1>
-          <div className="flex justify-center mb-4 sm:mb-6">
-            <TabsList className="flex flex-wrap justify-center gap-2 sm:gap-4 bg-transparent w-full max-w-4xl">
-              {tabs.map((tab) => (
-                <TabTrigger
-                  key={tab.value}
-                  value={tab.value}
-                  label={tab.label}
-                />
-              ))}
-            </TabsList>
-          </div>
+        <div className="flex justify-center mb-4">
+          <TabsList className="flex flex-wrap gap-2 sm:gap-4 bg-transparent">
+            {tabs.map((tab) => (
+              <TabsTrigger
+                key={tab.value}
+                value={tab.value}
+                className="px-3 sm:px-6 py-2 sm:py-4 cursor-pointer rounded-md text-xs sm:text-sm font-medium transition-colors data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=inactive]:bg-gray-100 data-[state=inactive]:text-gray-700 data-[state=inactive]:hover:bg-gray-200 dark:data-[state=inactive]:bg-gray-800 dark:data-[state=inactive]:text-gray-300 dark:data-[state=inactive]:hover:bg-gray-700"
+              >
+                {tab.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
         </div>
 
-        {/* Tab content */}
-        <div className="flex-1 min-h-0 overflow-hidden">
-          <TabsContent value="existing" className="h-full overflow-y-auto">
-            <div className="p-4 sm:p-6">
-              <ExistingLink />
-            </div>
+        <div className="flex-1 overflow-y-auto mt-6">
+          <TabsContent value="add" className="space-y-4 h-full">
+            <AddInternalLink />
           </TabsContent>
-          <TabsContent value="opportunities" className="h-full overflow-y-auto">
-            <div className="p-4 sm:p-6">
-              <LinkOpportunity />
-            </div>
+
+          <TabsContent value="existing" className="space-y-4 h-full">
+            <ExistingLink />
           </TabsContent>
-          <TabsContent value="add" className="h-full overflow-y-auto">
-            <div className="p-4 sm:p-6">
-              <AddInternalLink />
-            </div>
+
+          <TabsContent value="opportunity" className="space-y-4 h-full">
+            <LinkOpportunity />
           </TabsContent>
-          <TabsContent value="analytics" className="h-full overflow-y-auto">
-            <div className="p-4 sm:p-6">
-              <LinkAnalytic />
-            </div>
+
+          <TabsContent value="analytics" className="space-y-4 h-full">
+            <LinkAnalytic />
           </TabsContent>
         </div>
       </Tabs>

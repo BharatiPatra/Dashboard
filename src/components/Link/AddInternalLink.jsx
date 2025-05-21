@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
+import { Label } from "@/components/ui/label";
 import {
   Card,
   CardContent,
@@ -15,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 
 // Article options for select inputs
 const articleOptions = [
@@ -45,71 +47,126 @@ const FormField = ({ label, children }) => (
 );
 
 const AddInternalLink = () => {
+  const [formData, setFormData] = useState({
+    sourceUrl: "",
+    targetUrl: "",
+    anchorText: "",
+    category: "",
+    notes: "",
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+  };
+
   return (
-    <div className="space-y-6">
-      <Card>
-        <CardHeader className="p-4 sm:p-6">
-          <CardTitle className="text-base sm:text-lg">
-            Add Internal Link
-          </CardTitle>
-          <CardDescription className="text-xs sm:text-sm mt-1">
-            Create a new internal link between articles
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="p-4 sm:p-6 space-y-6">
-          <FormField label="Source Article">
-            <Select>
-              <SelectTrigger className="w-full cursor-pointer text-xs sm:text-sm">
-                <SelectValue placeholder="Select source article" />
-              </SelectTrigger>
-              <SelectContent>
-                {articleOptions.map((article) => (
-                  <SelectItem
-                    key={article.value}
-                    value={article.value}
-                    className="cursor-pointer text-xs sm:text-sm"
-                  >
-                    {article.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </FormField>
-
-          <FormField label="Target Article">
-            <Select>
-              <SelectTrigger className="w-full cursor-pointer text-xs sm:text-sm">
-                <SelectValue placeholder="Select target article" />
-              </SelectTrigger>
-              <SelectContent>
-                {articleOptions.map((article) => (
-                  <SelectItem
-                    key={article.value}
-                    value={article.value}
-                    className="cursor-pointer text-xs sm:text-sm"
-                  >
-                    {article.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </FormField>
-
-          <FormField label="Anchor Text">
+    <Card className="w-full">
+      <CardHeader>
+        <CardTitle className="text-foreground">Add New Internal Link</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-2">
+            <Label htmlFor="sourceUrl" className="text-foreground">
+              Source URL
+            </Label>
             <Input
-              placeholder="Enter anchor text"
-              className="w-full text-xs sm:text-sm"
+              id="sourceUrl"
+              value={formData.sourceUrl}
+              onChange={(e) =>
+                setFormData({ ...formData, sourceUrl: e.target.value })
+              }
+              placeholder="Enter source page URL"
+              className="bg-background text-foreground border-input"
             />
-          </FormField>
+          </div>
 
-          <div className="pt-4 flex justify-end">
-            <Button className="w-full sm:w-auto cursor-pointer text-xs sm:text-sm whitespace-nowrap">
-              Add Internal Link
+          <div className="space-y-2">
+            <Label htmlFor="targetUrl" className="text-foreground">
+              Target URL
+            </Label>
+            <Input
+              id="targetUrl"
+              value={formData.targetUrl}
+              onChange={(e) =>
+                setFormData({ ...formData, targetUrl: e.target.value })
+              }
+              placeholder="Enter target page URL"
+              className="bg-background text-foreground border-input"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="anchorText" className="text-foreground">
+              Anchor Text
+            </Label>
+            <Input
+              id="anchorText"
+              value={formData.anchorText}
+              onChange={(e) =>
+                setFormData({ ...formData, anchorText: e.target.value })
+              }
+              placeholder="Enter anchor text"
+              className="bg-background text-foreground border-input"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="category" className="text-foreground">
+              Category
+            </Label>
+            <Select
+              value={formData.category}
+              onValueChange={(value) =>
+                setFormData({ ...formData, category: value })
+              }
+            >
+              <SelectTrigger className="bg-background text-foreground border-input">
+                <SelectValue placeholder="Select a category" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="navigation">Navigation</SelectItem>
+                <SelectItem value="content">Content</SelectItem>
+                <SelectItem value="footer">Footer</SelectItem>
+                <SelectItem value="sidebar">Sidebar</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="notes" className="text-foreground">
+              Notes
+            </Label>
+            <Textarea
+              id="notes"
+              value={formData.notes}
+              onChange={(e) =>
+                setFormData({ ...formData, notes: e.target.value })
+              }
+              placeholder="Add any additional notes"
+              className="min-h-[100px] bg-background text-foreground border-input"
+            />
+          </div>
+
+          <div className="flex justify-end gap-4">
+            <Button
+              type="button"
+              variant="outline"
+              className="border-input hover:bg-gray-100 dark:hover:bg-gray-800"
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
+            >
+              Add Link
             </Button>
           </div>
-        </CardContent>
-      </Card>
-    </div>
+        </form>
+      </CardContent>
+    </Card>
   );
 };
 

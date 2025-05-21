@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
-import { RefreshCw, Settings } from "lucide-react";
+import { RefreshCw, Settings, Copy } from "lucide-react";
 
 import { apiUsage, webhooks } from "./DummyData";
 
@@ -125,9 +125,64 @@ const ApiWebhook = () => {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          {webhooks.map((webhook) => (
-            <WebhookItem key={webhook.id} webhook={webhook} />
-          ))}
+          <div className="grid gap-4">
+            {webhooks.map((webhook) => (
+              <div
+                key={webhook.id}
+                className="p-4 border rounded-lg "
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <h3 className="font-medium dark:text-white">
+                      {webhook.name}
+                    </h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      {webhook.description}
+                    </p>
+                  </div>
+                  <Switch
+                    checked={webhook.enabled}
+                    onCheckedChange={() => handleToggle(webhook.id)}
+                    className="data-[state=checked]:bg-blue-600"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium dark:text-gray-300">
+                      URL:
+                    </span>
+                    <code className="px-2 py-1 text-sm bg-gray-100 rounded dark:bg-gray-800 dark:text-gray-300">
+                      {webhook.url}
+                    </code>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleCopy(webhook.url)}
+                      className="dark:text-gray-300 dark:hover:bg-gray-800"
+                    >
+                      <Copy className="w-4 h-4" />
+                    </Button>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium dark:text-gray-300">
+                      Secret:
+                    </span>
+                    <code className="px-2 py-1 text-sm bg-gray-100 rounded dark:bg-gray-800 dark:text-gray-300">
+                      {webhook.secret}
+                    </code>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleCopy(webhook.secret)}
+                      className="dark:text-gray-300 dark:hover:bg-gray-800"
+                    >
+                      <Copy className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
 
           <Button className="w-full h-9 sm:h-10 text-xs sm:text-sm md:text-base cursor-pointer">
             Add New Webhook

@@ -64,3 +64,34 @@ export const linkOpportunities = [
     suggestedAnchor: "outsourcing design work",
   },
 ];
+
+export const linkAnalytics = [
+  {
+    id: 1,
+    source: "example.com/page1",
+    target: "yourdomain.com/article1",
+    clicks: 245,
+    date: "2024-03-15",
+  },
+  {
+    id: 2,
+    source: "blog.example.org/post",
+    target: "yourdomain.com/product",
+    clicks: 189,
+    date: "2024-03-14",
+  },
+  {
+    id: 3,
+    source: "news.site.com/article",
+    target: "yourdomain.com/service",
+    clicks: 312,
+    date: "2024-03-13",
+  },
+  {
+    id: 4,
+    source: "tech.blog.com/review",
+    target: "yourdomain.com/feature",
+    clicks: 156,
+    date: "2024-03-12",
+  },
+];

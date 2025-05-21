@@ -4,7 +4,7 @@ const SocialButton = ({ icon, username }) => (
   <Button
     variant="outline"
     size="sm"
-    className="gap-2 cursor-pointer w-full sm:w-auto"
+    className="gap-2 cursor-pointer w-full sm:w-auto dark:border-gray-700 dark:hover:bg-gray-800 dark:text-gray-200"
   >
     {icon}
     {username}
@@ -13,7 +13,7 @@ const SocialButton = ({ icon, username }) => (
 
 const SocialProfiles = ({ profiles }) => (
   <div>
-    <h3 className="text-sm font-medium text-muted-foreground mb-2">
+    <h3 className="text-sm font-medium text-muted-foreground mb-2 dark:text-gray-400">
       Social Profiles
     </h3>
     <div className="flex flex-col sm:flex-row gap-3">

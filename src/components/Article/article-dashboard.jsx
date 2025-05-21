@@ -52,14 +52,14 @@ export default function ArticlesDashboard() {
       </h1>
 
       {/* Tabs */}
-      <div className="flex flex-wrap gap-2 sm:gap-4 mb-4 justify-center">
+      <div className="flex flex-wrap gap-2 sm:gap-4 mb-4 justify-center ">
         {tabs.map((tab) => (
           <button
             key={tab.value}
             className={`px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm font-medium whitespace-nowrap ${
               activeTab === tab.value
-                ? "bg-blue-600 text-white"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                ? "bg-blue-600 text-white dark:bg-blue-700"
+                : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
             } cursor-pointer`}
             onClick={() => setActiveTab(tab.value)}
           >
@@ -81,9 +81,9 @@ export default function ArticlesDashboard() {
       {/* Table */}
       <div className="border border-gray-200 rounded-md overflow-x-auto">
         <table className="w-full text-xs sm:text-sm">
-          <thead className="bg-gray-50">
+          <thead className="bg-gray-50 dark:text-gray-300 dark:bg-gray-800">
             <tr>
-              <th className="p-2 sm:p-3 pr-2 sm:pr-5 text-left">
+              <th className="p-2 sm:p-3 pr-2 sm:pr-5 text-left ">
                 <Checkbox className="cursor-pointer" />
               </th>
               <th className="p-2 sm:p-3 text-left">Article Title</th>

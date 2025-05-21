@@ -29,21 +29,22 @@ export default function Integration() {
   const [activeTab, setActiveTab] = useState("available");
 
   return (
-    <div className="h-full flex flex-col overflow-auto bg-white rounded-lg shadow-sm">
-      <div className="flex-none p-3 sm:p-4 md:p-6 ">
-        <h1 className="text-lg sm:text-xl md:text-2xl font-semibold mb-3 sm:mb-4 md:mb-6">
-          Integrations
-        </h1>
+    <div className="h-full flex flex-col overflow-auto bg-white dark:bg-black rounded-lg shadow-sm">
+      <Tabs
+        value={activeTab}
+        onValueChange={setActiveTab}
+        defaultValue="available"
+        className="flex flex-col h-full"
+      >
+        {/* Header */}
+        <div className="flex-none p-3 sm:p-4 md:p-6">
+          <h1 className="text-lg sm:text-xl md:text-2xl font-semibold mb-3 sm:mb-4 md:mb-6 dark:text-white">
+            Integrations
+          </h1>
 
-        <Tabs
-          defaultValue="available"
-          className="w-full mt-10"
-          value={activeTab}
-          onValueChange={setActiveTab}
-
-        >
+          {/* Tab Triggers */}
           <div className="flex justify-center mb-3 sm:mb-4 md:mb-6">
-            <TabsList className="flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-4 bg-transparent w-full sm:w-auto">
+            <TabsList className="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4 w-full bg-transparent border-none shadow-none">
               {tabs.map((tab) => (
                 <TabTrigger
                   key={tab.value}
@@ -53,41 +54,30 @@ export default function Integration() {
               ))}
             </TabsList>
           </div>
-        </Tabs>
-      </div>
+        </div>
 
-      <div className="flex-1 min-h-0">
-        <Tabs
-          defaultValue="available"
-          className="w-full h-full"
-          value={activeTab}
-          onValueChange={setActiveTab}
-        >
-          <div className="h-full">
-            <TabsContent
-              value="available"
-              className="mt-0 h-full overflow-y-auto"
-            >
-              <div className="p-3 sm:p-4 md:p-6">
-                <AvailableIntegration />
-              </div>
-            </TabsContent>
-            <TabsContent value="api" className="mt-0 h-full overflow-y-auto">
-              <div className="p-3 sm:p-4 md:p-6">
-                <ApiWebhook />
-              </div>
-            </TabsContent>
-            <TabsContent
-              value="settings"
-              className="mt-0 h-full overflow-y-auto"
-            >
-              <div className="p-3 sm:p-4 md:p-6">
-                <Setting />
-              </div>
-            </TabsContent>
-          </div>
-        </Tabs>
-      </div>
+        {/* Tab Content Area */}
+        <div className="flex-1 min-h-0 overflow-hidden">
+          <TabsContent
+            value="available"
+            className="h-full overflow-y-auto mt-0"
+          >
+            <div className="p-3 sm:p-4 md:p-6">
+              <AvailableIntegration />
+            </div>
+          </TabsContent>
+          <TabsContent value="settings" className="h-full overflow-y-auto mt-0">
+            <div className="p-3 sm:p-4 md:p-6">
+              <Setting />
+            </div>
+          </TabsContent>
+          <TabsContent value="api" className="h-full overflow-y-auto mt-0">
+            <div className="p-3 sm:p-4 md:p-6">
+              <ApiWebhook />
+            </div>
+          </TabsContent>
+        </div>
+      </Tabs>
 
       {selectedIntegration && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-3 sm:p-4">

@@ -25,6 +25,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { CalendarIcon, Clock } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 
 // Content type options
 const contentTypes = [
@@ -64,139 +66,111 @@ const SwitchOption = ({ title, description, defaultChecked = false }) => (
 
 const CreateBlog = () => {
   const [date, setDate] = useState();
+  const [formData, setFormData] = useState({
+    title: "",
+    content: "",
+    category: "",
+    tags: "",
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+  };
 
   return (
     <TabsContent value="create" className="space-y-6">
-      <Card>
-        <CardHeader className="p-4 sm:p-6">
-          <CardTitle className="text-base sm:text-lg">
-            Create Auto-Blog Post
+      <Card className="w-full">
+        <CardHeader>
+          <CardTitle className="text-foreground">
+            Create New Blog Post
           </CardTitle>
-          <CardDescription className="text-xs sm:text-sm mt-1">
-            Set up an automated blog post based on keywords
-          </CardDescription>
         </CardHeader>
-        <CardContent className="p-4 sm:p-6 space-y-4">
-          {/* Topic Input */}
-          <div>
-            <label className="block text-xs sm:text-sm font-medium mb-1">
-              Topic or Keyword
-            </label>
-            <Input
-              placeholder="Enter topic or keyword"
-              className="w-full text-xs sm:text-sm"
-            />
-          </div>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-2">
+              <Label htmlFor="title" className="text-foreground">
+                Title
+              </Label>
+              <Input
+                id="title"
+                value={formData.title}
+                onChange={(e) =>
+                  setFormData({ ...formData, title: e.target.value })
+                }
+                placeholder="Enter blog title"
+                className="bg-background text-foreground border-input"
+              />
+            </div>
 
-          {/* Content Type Select */}
-          <div>
-            <label className="block text-xs sm:text-sm font-medium mb-1">
-              Content Type
-            </label>
-            <Select defaultValue="article">
-              <SelectTrigger className="w-full cursor-pointer text-xs sm:text-sm">
-                <SelectValue placeholder="Select content type" />
-              </SelectTrigger>
-              <SelectContent>
-                {contentTypes.map((type) => (
-                  <SelectItem
-                    key={type.value}
-                    value={type.value}
-                    className="cursor-pointer text-xs sm:text-sm"
-                  >
-                    {type.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+            <div className="space-y-2">
+              <Label htmlFor="content" className="text-foreground">
+                Content
+              </Label>
+              <Textarea
+                id="content"
+                value={formData.content}
+                onChange={(e) =>
+                  setFormData({ ...formData, content: e.target.value })
+                }
+                placeholder="Write your blog content here..."
+                className="min-h-[200px] bg-background text-foreground border-input"
+              />
+            </div>
 
-          {/* Article Length Select */}
-          <div>
-            <label className="block text-xs sm:text-sm font-medium mb-1">
-              Article Length
-            </label>
-            <Select defaultValue="medium">
-              <SelectTrigger className="w-full cursor-pointer text-xs sm:text-sm">
-                <SelectValue placeholder="Select length" />
-              </SelectTrigger>
-              <SelectContent>
-                {articleLengths.map((length) => (
-                  <SelectItem
-                    key={length.value}
-                    value={length.value}
-                    className="cursor-pointer text-xs sm:text-sm"
-                  >
-                    {length.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          {/* Schedule Publication */}
-          <div>
-            <label className="block text-xs sm:text-sm font-medium mb-1">
-              Schedule Publication
-            </label>
-            <div className="flex flex-col gap-2 w-full">
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className="w-full justify-start text-left font-normal cursor-pointer text-xs sm:text-sm"
-                  >
-                    <CalendarIcon className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
-                    {date ? format(date, "PPP") : "Pick a date"}
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0">
-                  <Calendar
-                    mode="single"
-                    selected={date}
-                    onSelect={setDate}
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
-
-              <Select defaultValue="10:00">
-                <SelectTrigger className="w-full cursor-pointer text-xs sm:text-sm">
-                  <Clock className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
-                  <SelectValue placeholder="Select time" />
+            <div className="space-y-2">
+              <Label htmlFor="category" className="text-foreground">
+                Category
+              </Label>
+              <Select
+                value={formData.category}
+                onValueChange={(value) =>
+                  setFormData({ ...formData, category: value })
+                }
+              >
+                <SelectTrigger className="bg-background text-foreground border-input">
+                  <SelectValue placeholder="Select a category" />
                 </SelectTrigger>
                 <SelectContent>
-                  {timeOptions.map((time) => (
-                    <SelectItem
-                      key={time.value}
-                      value={time.value}
-                      className="cursor-pointer text-xs sm:text-sm"
-                    >
-                      {time.label}
-                    </SelectItem>
-                  ))}
+                  <SelectItem value="technology">Technology</SelectItem>
+                  <SelectItem value="lifestyle">Lifestyle</SelectItem>
+                  <SelectItem value="business">Business</SelectItem>
+                  <SelectItem value="health">Health</SelectItem>
                 </SelectContent>
               </Select>
             </div>
-          </div>
 
-          {/* Switch Options */}
-          <div className="space-y-4">
-            <SwitchOption
-              title="Auto-publish"
-              description="Automatically publish when generated"
-            />
-            <SwitchOption
-              title="Add images"
-              description="Automatically add relevant images"
-              defaultChecked={true}
-            />
-          </div>
+            <div className="space-y-2">
+              <Label htmlFor="tags" className="text-foreground">
+                Tags
+              </Label>
+              <Input
+                id="tags"
+                value={formData.tags}
+                onChange={(e) =>
+                  setFormData({ ...formData, tags: e.target.value })
+                }
+                placeholder="Enter tags separated by commas"
+                className="bg-background text-foreground border-input"
+              />
+            </div>
 
-          {/* Submit Button */}
-          <Button className="w-full cursor-pointer text-sm sm:text-base">
-            Create Auto-Blog Post
-          </Button>
+            <div className="flex justify-end gap-4">
+              <Button
+                type="button"
+                variant="outline"
+                className="border-input hover:bg-gray-100 dark:hover:bg-gray-800"
+              >
+                Save as Draft
+              </Button>
+              <Button
+                type="submit"
+                className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
+              >
+                Publish
+              </Button>
+            </div>
+          </form>
         </CardContent>
       </Card>
     </TabsContent>

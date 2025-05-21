@@ -41,40 +41,29 @@ const StatusBadge = ({ status }) => (
 const AvailableIntegration = () => {
   return (
     <div className="space-y-4 sm:space-y-6 min-h-0">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {availableIntegrations.map((integration) => (
-          <Card key={integration.id} className="overflow-hidden">
-            <CardHeader className="pb-2">
-              <div className="flex justify-between items-start">
-                <div className="flex items-center gap-2">
-                  <IntegrationIcon icon={integration.icon} />
-                  <CardTitle className="text-base sm:text-lg">
-                    {integration.name}
-                  </CardTitle>
-                </div>
-                <StatusBadge status={integration.status} />
+          <div key={integration.id} className="p-4 border rounded-lg ">
+            <div className="flex items-center gap-4 mb-4">
+              <div className="p-2 bg-gray-100 rounded-lg ">
+                <integration.icon className="w-6 h-6 text-gray-600 dark:text-gray-300" />
               </div>
-              <CardDescription className="text-xs sm:text-sm">
-                {integration.description}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              {integration.status === "connected" && (
-                <div className="text-xs sm:text-sm text-muted-foreground mb-2 sm:mb-3">
-                  Last synced: {integration.lastSync}
-                </div>
-              )}
-              <Button
-                variant={
-                  integration.status === "connected" ? "outline" : "default"
-                }
-                className="w-full h-9 sm:h-10 text-xs sm:text-sm md:text-base cursor-pointer"
-                onClick={() => setSelectedIntegration(integration)}
-              >
-                {integration.status === "connected" ? "Manage" : "Connect"}
-              </Button>
-            </CardContent>
-          </Card>
+              <div>
+                <h3 className="font-medium dark:text-white">
+                  {integration.name}
+                </h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {integration.description}
+                </p>
+              </div>
+            </div>
+            <Button
+              className="w-full h-9 sm:h-10 text-xs sm:text-sm md:text-base cursor-pointer"
+              onClick={() => handleConnect(integration.id)}
+            >
+              Connect
+            </Button>
+          </div>
         ))}
       </div>
     </div>

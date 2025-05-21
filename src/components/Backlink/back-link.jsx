@@ -17,7 +17,7 @@ const tabs = [
 const TabTrigger = ({ value, label }) => (
   <TabsTrigger
     value={value}
-    className="flex-1 sm:flex-none min-w-[140px] text-center px-3 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4 cursor-pointer rounded-md text-xs sm:text-sm md:text-base font-medium transition-colors data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=inactive]:bg-gray-100 data-[state=inactive]:text-gray-700 data-[state=inactive]:hover:bg-gray-200"
+    className="flex-1 sm:flex-none min-w-[140px] text-center px-3 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4 cursor-pointer rounded-md text-xs sm:text-sm md:text-base font-medium transition-colors data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=inactive]:bg-gray-100 data-[state=inactive]:text-gray-700 data-[state=inactive]:hover:bg-gray-200 dark:data-[state=inactive]:bg-gray-800 dark:data-[state=inactive]:text-gray-300 dark:data-[state=inactive]:hover:bg-gray-700"
   >
     {label}
   </TabsTrigger>
@@ -25,8 +25,8 @@ const TabTrigger = ({ value, label }) => (
 
 export default function Backlink() {
   const [activeTab, setActiveTab] = useState("existing");
- return (
-    <div className="h-full flex flex-col overflow-auto bg-white rounded-lg shadow-sm">
+  return (
+    <div className="h-full flex flex-col overflow-auto bg-white dark:bg-black rounded-lg shadow-sm">
       <Tabs
         value={activeTab}
         onValueChange={setActiveTab}
@@ -55,10 +55,7 @@ export default function Backlink() {
 
         {/* Tab Content Area */}
         <div className="flex-1 min-h-0 overflow-hidden">
-          <TabsContent
-            value="existing"
-            className="h-full overflow-y-auto mt-0"
-          >
+          <TabsContent value="existing" className="h-full overflow-y-auto mt-0">
             <div className="p-3 sm:p-4 md:p-6">
               <ExistingBacklink />
             </div>
@@ -71,10 +68,7 @@ export default function Backlink() {
               <BacklinkOpportunitiy />
             </div>
           </TabsContent>
-          <TabsContent
-            value="outreach"
-            className="h-full overflow-y-auto mt-0"
-          >
+          <TabsContent value="outreach" className="h-full overflow-y-auto mt-0">
             <div className="p-3 sm:p-4 md:p-6">
               <OutreachCampaigns />
             </div>

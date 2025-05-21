@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 const SwitchOption = ({ title, description, defaultChecked = false }) => (
   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0">
@@ -29,109 +31,89 @@ const SwitchOption = ({ title, description, defaultChecked = false }) => (
 const AutoBlogSetting = () => {
   return (
     <TabsContent value="settings" className="space-y-6 min-h-0">
-      <Card className="overflow-hidden">
-        <CardHeader className="p-4 sm:p-6">
-          <CardTitle className="text-base sm:text-lg">
-            Auto-Blog Settings
-          </CardTitle>
-          <CardDescription className="text-xs sm:text-sm mt-1">
-            Configure your auto-blog preferences
-          </CardDescription>
+      <Card className="w-full">
+        <CardHeader>
+          <CardTitle className="text-foreground">Auto Blog Settings</CardTitle>
         </CardHeader>
-        <CardContent className="p-4 sm:p-6 space-y-4">
-          <div className="space-y-4">
-            <SwitchOption
-              title="Auto-publish all posts"
-              description="Automatically publish all generated posts"
-            />
+        <CardContent>
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="space-y-0.5">
+                  <Label className="text-foreground">
+                    Enable Auto Blogging
+                  </Label>
+                  <p className="text-sm text-muted-foreground">
+                    Automatically generate and publish blog posts
+                  </p>
+                </div>
+                <Switch />
+              </div>
 
-            <SwitchOption
-              title="Add featured images"
-              description="Automatically add featured images to posts"
-              defaultChecked={true}
-            />
+              <div className="space-y-2">
+                <Label className="text-foreground">Posting Frequency</Label>
+                <Select defaultValue="daily">
+                  <SelectTrigger className="bg-background text-foreground border-input">
+                    <SelectValue placeholder="Select frequency" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="daily">Daily</SelectItem>
+                    <SelectItem value="weekly">Weekly</SelectItem>
+                    <SelectItem value="monthly">Monthly</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-            <SwitchOption
-              title="Auto-categorize"
-              description="Automatically assign categories to posts"
-              defaultChecked={true}
-            />
-          </div>
+              <div className="space-y-2">
+                <Label className="text-foreground">Posting Time</Label>
+                <Input
+                  type="time"
+                  defaultValue="09:00"
+                  className="bg-background text-foreground border-input"
+                />
+              </div>
 
-          <div className="space-y-4">
-            <div>
-              <label className="block text-xs sm:text-sm font-medium mb-1">
-                Default Content Type
-              </label>
-              <Select defaultValue="article">
-                <SelectTrigger className="w-full cursor-pointer text-xs sm:text-sm">
-                  <SelectValue placeholder="Select default content type" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem
-                    value="article"
-                    className="cursor-pointer text-xs sm:text-sm"
-                  >
-                    Full Article
-                  </SelectItem>
-                  <SelectItem
-                    value="listicle"
-                    className="cursor-pointer text-xs sm:text-sm"
-                  >
-                    Listicle
-                  </SelectItem>
-                  <SelectItem
-                    value="howto"
-                    className="cursor-pointer text-xs sm:text-sm"
-                  >
-                    How-To Guide
-                  </SelectItem>
-                  <SelectItem
-                    value="review"
-                    className="cursor-pointer text-xs sm:text-sm"
-                  >
-                    Review
-                  </SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="space-y-2">
+                <Label className="text-foreground">Content Categories</Label>
+                <Select defaultValue="all">
+                  <SelectTrigger className="bg-background text-foreground border-input">
+                    <SelectValue placeholder="Select categories" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Categories</SelectItem>
+                    <SelectItem value="tech">Technology</SelectItem>
+                    <SelectItem value="business">Business</SelectItem>
+                    <SelectItem value="lifestyle">Lifestyle</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label className="text-foreground">AI Model</Label>
+                <Select defaultValue="gpt4">
+                  <SelectTrigger className="bg-background text-foreground border-input">
+                    <SelectValue placeholder="Select AI model" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="gpt4">GPT-4</SelectItem>
+                    <SelectItem value="gpt35">GPT-3.5</SelectItem>
+                    <SelectItem value="claude">Claude</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
 
-            <div>
-              <label className="block text-xs sm:text-sm font-medium mb-1">
-                Default Article Length
-              </label>
-              <Select defaultValue="medium">
-                <SelectTrigger className="w-full cursor-pointer text-xs sm:text-sm">
-                  <SelectValue placeholder="Select default length" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem
-                    value="short"
-                    className="cursor-pointer text-xs sm:text-sm"
-                  >
-                    Short (500-800 words)
-                  </SelectItem>
-                  <SelectItem
-                    value="medium"
-                    className="cursor-pointer text-xs sm:text-sm"
-                  >
-                    Medium (1000-1500 words)
-                  </SelectItem>
-                  <SelectItem
-                    value="long"
-                    className="cursor-pointer text-xs sm:text-sm"
-                  >
-                    Long (2000+ words)
-                  </SelectItem>
-                </SelectContent>
-              </Select>
+            <div className="flex justify-end gap-4">
+              <Button
+                variant="outline"
+                className="border-input hover:bg-gray-100 dark:hover:bg-gray-800"
+              >
+                Reset
+              </Button>
+              <Button className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600">
+                Save Settings
+              </Button>
             </div>
-          </div>
-
-          <div className="pt-2">
-            <Button className="w-full sm:w-auto cursor-pointer text-xs sm:text-sm">
-              Save Settings
-            </Button>
           </div>
         </CardContent>
       </Card>

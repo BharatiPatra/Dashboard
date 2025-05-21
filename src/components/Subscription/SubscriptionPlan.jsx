@@ -55,59 +55,55 @@ const SubscriptionPlan = () => {
         />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {subscriptionPlans.map((plan) => (
-          <Card
+          <div
             key={plan.id}
-            className={`relative ${plan.popular ? "border-primary" : ""}`}
+            className={`p-4 border rounded-lg ${
+              plan.recommended
+                ? "border-blue-500 dark:border-blue-400"
+                : "dark:border-gray-800"
+            } `}
           >
-            {plan.popular && (
-              <div className="absolute -top-3 left-0 right-0 flex justify-center">
-                <Badge className="bg-primary hover:bg-primary text-xs sm:text-sm">
-                  Most Popular
-                </Badge>
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h3 className="font-medium dark:text-white">{plan.name}</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {plan.description}
+                </p>
               </div>
-            )}
-            <CardHeader>
-              <CardTitle className="text-base sm:text-lg">
-                {plan.name}
-              </CardTitle>
-              <CardDescription className="text-xs sm:text-sm">
-                {plan.description}
-              </CardDescription>
-              <div className="mt-2">
-                <span className="text-2xl sm:text-3xl font-bold">
-                  $
-                  {billingCycle === "annual"
-                    ? Math.round(plan.price * 0.8)
-                    : plan.price}
+              {plan.recommended && (
+                <span className="px-2 py-1 text-xs font-medium text-blue-600 bg-blue-100 rounded-full dark:text-blue-400 dark:bg-blue-900/50">
+                  Recommended
                 </span>
-                <span className="text-xs sm:text-sm text-muted-foreground">
-                  /
-                  {billingCycle === "annual"
-                    ? "month, billed annually"
-                    : "month"}
-                </span>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2">
-                {plan.features.map((feature, index) => (
-                  <PlanFeature key={index} feature={feature} />
-                ))}
-              </ul>
-            </CardContent>
-            <CardFooter>
-              <Button
-                className="w-full h-9 sm:h-10 text-xs sm:text-sm md:text-base cursor-pointer"
-                variant={plan.popular ? "default" : "outline"}
-              >
-                {plan.popular
-                  ? "Upgrade to Professional"
-                  : `Choose ${plan.name}`}
-              </Button>
-            </CardFooter>
-          </Card>
+              )}
+            </div>
+            <div className="mb-4">
+              <span className="text-2xl font-bold dark:text-white">
+                ${plan.price}
+              </span>
+              <span className="text-sm text-gray-500 dark:text-gray-400">
+                /month
+              </span>
+            </div>
+            <ul className="space-y-2 mb-6">
+              {plan.features.map((feature, index) => (
+                <li key={index} className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-green-500 dark:text-green-400" />
+                  <span className="text-sm dark:text-gray-300">{feature}</span>
+                </li>
+              ))}
+            </ul>
+            <Button
+              className={`w-full ${
+                plan.recommended
+                  ? "bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
+                  : "bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white"
+              }`}
+            >
+              {plan.current ? "Current Plan" : "Upgrade"}
+            </Button>
+          </div>
         ))}
       </div>
 

@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
-import { CreditCard, Download, FileText, History } from "lucide-react";
+import { CreditCard, Download, FileText, History, Eye } from "lucide-react";
 import { billingHistory } from "./DummyData";
 
 // Payment method item component
@@ -131,7 +131,53 @@ const BillingInvoice = () => {
         <CardContent>
           <div className="space-y-2">
             {billingHistory.map((invoice) => (
-              <InvoiceItem key={invoice.id} invoice={invoice} />
+              <div
+                key={invoice.id}
+                className="p-4 border rounded-lg dark:border-gray-800"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <h3 className="font-medium dark:text-white">
+                      Invoice #{invoice.id}
+                    </h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      {invoice.date}
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-sm font-medium dark:text-white">
+                      ${invoice.amount}
+                    </span>
+                    <div
+                      className={`text-xs ${
+                        invoice.status === "paid"
+                          ? "text-green-600 dark:text-green-400"
+                          : "text-red-600 dark:text-red-400"
+                      }`}
+                    >
+                      {invoice.status}
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="dark:text-gray-300 dark:border-gray-700 dark:hover:bg-gray-800"
+                  >
+                    <Download className="w-4 h-4 mr-2" />
+                    Download
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="dark:text-gray-300 dark:border-gray-700 dark:hover:bg-gray-800"
+                  >
+                    <Eye className="w-4 h-4 mr-2" />
+                    View
+                  </Button>
+                </div>
+              </div>
             ))}
           </div>
         </CardContent>
