@@ -1,0 +1,42 @@
+export const importedKeywords = [
+  {
+    id: 1,
+    keyword: "league of legends best champions",
+    volume: 18000,
+    difficulty: 62,
+    cpc: 1.24,
+    intent: "informational",
+  },
+  {
+    id: 2,
+    keyword: "league of legends tier list 2024",
+    volume: 22000,
+    difficulty: 58,
+    cpc: 0.95,
+    intent: "informational",
+  },
+  {
+    id: 3,
+    keyword: "how to climb in league of legends",
+    volume: 9500,
+    difficulty: 45,
+    cpc: 0.78,
+    intent: "informational",
+  },
+  {
+    id: 4,
+    keyword: "league of legends pro builds",
+    volume: 14500,
+    difficulty: 53,
+    cpc: 1.12,
+    intent: "commercial",
+  },
+  {
+    id: 5,
+    keyword: "league of legends patch notes",
+    volume: 33000,
+    difficulty: 67,
+    cpc: 0.65,
+    intent: "navigational",
+  },
+];
