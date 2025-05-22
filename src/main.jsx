@@ -14,7 +14,7 @@ import ArticleSettings from "./components/Article/ArticleSetting/article-setting
 import InternalLink from "./components/Link/internal-link.jsx";
 import Backlink from "./components/Backlink/back-link.jsx";
 import AutoBlog from "./components/Blog/auto-blog.jsx";
-import Integration from "./components/Integration/Integration.jsx";
+import Integration from "./components/Integration/integration.jsx";
 import Subscription from "./components/Subscription/subscription.jsx";
 import AffiliateProgram from "./components/Program/affiliate-program.jsx";
 import TeamCenter from "./components/Team/team.jsx";
