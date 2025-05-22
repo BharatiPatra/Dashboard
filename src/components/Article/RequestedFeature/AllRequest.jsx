@@ -1,4 +1,4 @@
-import { requestedFeatures } from "../dummyData/ArticleConstant";
+import { requestedFeatures } from "../DummyData/ArticleConstant";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {

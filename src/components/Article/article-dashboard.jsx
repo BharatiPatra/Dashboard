@@ -12,7 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Globe } from "lucide-react";
-import { articles } from "./dummyData/ArticleConstant";
+import { articles } from "./DummyData/ArticleConstant";
 
 export default function ArticlesDashboard() {
   const [activeTab, setActiveTab] = useState("generated");
